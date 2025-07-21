@@ -17,82 +17,19 @@ export default function About() {
             physics + photography
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-            Diving deep into the science behind photography - from the quantum mechanics governing digital sensors 
-            to the chemistry of silver halide crystals in film. Understanding the physics makes you a better photographer.
+            At the intersection of physics and photography lies something profound - where fundamental principles 
+            of light, matter, and energy transform into images that move people. When you understand the first 
+            principles governing how photons become memories, your craft transcends technique and becomes art.
           </p>
         </div>
 
-        {/* Mission Statement */}
-        <div className="mb-16">
-          <Card>
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-primary font-sans mb-4 text-center">Our Mission</h2>
-              <p className="text-gray-700 leading-relaxed text-center">
-                To bridge the gap between complex physics concepts and practical photography knowledge. 
-                Whether you're a photographer wanting to understand your tools better, a student exploring optics, 
-                or simply curious about how light becomes an image - this is your guide to the science of photography.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
 
-        {/* What We Cover */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-primary font-sans mb-8 text-center">What We Cover</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Microscope className="w-6 h-6 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-primary font-sans mb-2">Digital Photography</h3>
-                <p className="text-sm text-gray-600">
-                  Sensor technology, quantum efficiency, pixel architecture, and digital processing
-                </p>
-              </CardContent>
-            </Card>
 
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Camera className="w-6 h-6 text-green-600" />
-                </div>
-                <h3 className="font-bold text-primary font-sans mb-2">Film Photography</h3>
-                <p className="text-sm text-gray-600">
-                  Silver halide crystals, photochemical processes, emulsion science, and development
-                </p>
-              </CardContent>
-            </Card>
 
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="w-6 h-6 text-purple-600" />
-                </div>
-                <h3 className="font-bold text-primary font-sans mb-2">Optics & Physics</h3>
-                <p className="text-sm text-gray-600">
-                  Lens design, aberrations, diffraction, interference, and light behavior
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User className="w-6 h-6 text-orange-600" />
-                </div>
-                <h3 className="font-bold text-primary font-sans mb-2">Technique</h3>
-                <p className="text-sm text-gray-600">
-                  Practical applications of physics principles in photography techniques
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
 
         {/* Author Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-primary font-sans mb-8 text-center">About Ezequiel (Zeke) Davico</h2>
+          <h2 className="text-3xl font-bold text-primary font-sans mb-8 text-center">About the Author</h2>
           <Card>
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
@@ -102,29 +39,14 @@ export default function About() {
                   <p className="text-lg text-secondary mb-4">Physicist & Educator</p>
                   <div className="prose text-gray-700">
                     <p className="mb-4">
-                      Physicist with a diverse professional background spanning academia, data analysis, and cryptography. 
-                      Zeke currently leads InSight, a program dedicated to supporting students throughout their academic 
-                      journeys by seamlessly integrating educational resources and initiatives into the broader student experience.
-                    </p>
-                    <p className="mb-4">
-                      Previously, Zeke conducted research in quantum cryptography, where he designed and tested cryptographic 
-                      algorithms based on quantum principles. His work included building models and simulations to assess the 
-                      security and efficiency of these cutting-edge techniques. Collaborating with interdisciplinary teams of 
-                      physicists, engineers, and cybersecurity experts, he applied advanced methods to real-world data 
-                      transmission systems, ensuring their resilience against potential threats.
-                    </p>
-                    <p className="mb-4">
-                      Before transitioning to research and program management, Zeke spent several years in the education sector, 
-                      where he developed and implemented a next-generation science curriculum grounded in the latest educational 
-                      research. This effort was inspired by his work with NSF-supported studies on the peer-led, team-learning 
-                      model, which has demonstrated success in various university-level STEM courses.
+                      From quantum cryptography labs to ski slopes, Zeke brings a physicist's curiosity to everything he encounters. 
+                      Currently leading educational innovation programs, he's spent years unraveling how light behaves at the 
+                      quantum level - knowledge that naturally led him to explore how cameras capture and create reality.
                     </p>
                     <p>
-                      Throughout his career, Zeke has blended technical expertise with a strong commitment to education and 
-                      mentoring, striving to positively impact academic systems and students' lives. Outside of work, he enjoys 
-                      outdoor activities such as skiing and paddle boarding, reflecting his appreciation for physical challenges 
-                      and nature. Zeke brings a global perspective to his work, combining scientific innovation with a passion 
-                      for teaching, personal growth, and problem-solving.
+                      When he's not designing algorithms or mentoring students, you'll find him with a camera, applying the same 
+                      first-principles thinking that drives his research to understand why certain images resonate and others don't. 
+                      This blog is where those two worlds collide.
                     </p>
                   </div>
                 </div>
@@ -141,16 +63,16 @@ export default function About() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="mailto:contact@physicsofphotography.com" 
+              href="mailto:macrokroma@gmail.com" 
               className="inline-flex items-center justify-center px-6 py-3 bg-secondary text-white rounded-lg hover:bg-indigo-700 transition-colors font-sans font-medium"
             >
               Email Us
             </a>
             <a 
-              href="#" 
+              href="https://instagram.com/macrokroma" 
               className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-sans font-medium"
             >
-              Follow on Twitter
+              Follow on Instagram
             </a>
           </div>
         </div>

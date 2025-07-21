@@ -7,6 +7,7 @@ This is a full-stack blog application focused on the physics and technical aspec
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Directive: Wait for all information before acting on requests.
 
 ## System Architecture
 
