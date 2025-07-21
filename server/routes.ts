@@ -149,7 +149,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "No image file provided" });
       }
 
-      const { caption, postId } = req.body;
+      const { caption, postId, skipGallery } = req.body;
+      
+      // Only create database entry if not skipping gallery
+      if (skipGallery === 'true') {
+        // Just return the file information without saving to database
+        const imageWithUrl = {
+          id: 0, // Temporary ID for images not in gallery
+          filename: req.file.filename,
+          originalName: req.file.originalname,
+          mimeType: req.file.mimetype,
+          size: req.file.size,
+          url: `/uploads/${req.file.filename}`,
+          caption: null,
+          postId: null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        
+        return res.status(201).json(imageWithUrl);
+      }
       
       const imageData = {
         filename: req.file.filename,

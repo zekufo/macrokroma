@@ -52,6 +52,7 @@ export default function CreatePost() {
       if (coverImageFile) {
         const formData = new FormData();
         formData.append("image", coverImageFile);
+        formData.append("caption", data.title); // Use article title as caption
         const imageResponse = await apiRequest("/api/images", { method: "POST", body: formData });
         const imageData = await imageResponse.json();
         coverImageUrl = imageData.url;
@@ -280,21 +281,7 @@ export default function CreatePost() {
               </CardContent>
             </Card>
 
-            {/* Quick Tips */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-sans text-lg">Writing Tips</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm text-gray-600 space-y-2">
-                  <li>• Use clear, descriptive headings</li>
-                  <li>• Include relevant physics equations</li>
-                  <li>• Add captions to explain images</li>
-                  <li>• Keep technical content accessible</li>
-                  <li>• Use examples from real photography</li>
-                </ul>
-              </CardContent>
-            </Card>
+
           </div>
         </div>
       </div>
