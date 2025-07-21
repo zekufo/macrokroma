@@ -43,11 +43,20 @@ export default function HeroSection() {
             </div>
           </div>
           <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
-              alt="Camera lens optical elements"
-              className="rounded-xl shadow-2xl w-full"
-            />
+            {latestPost?.coverImage ? (
+              <img
+                src={latestPost.coverImage}
+                alt={latestPost.title}
+                className="rounded-xl shadow-2xl w-full"
+              />
+            ) : (
+              <div className="w-full h-96 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl shadow-2xl flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                  <p className="text-lg font-medium">No featured article yet</p>
+                  <p className="text-sm">Create your first post to see it here</p>
+                </div>
+              </div>
+            )}
             {latestPost && (
               <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex items-center space-x-3">
