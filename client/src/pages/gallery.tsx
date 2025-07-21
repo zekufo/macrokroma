@@ -14,7 +14,7 @@ import type { Image } from "@shared/schema";
 export default function Gallery() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const [isAdminMode, setIsAdminMode] = useState(false);
+
   const { toast } = useToast();
 
   const { data: images, isLoading } = useQuery<Image[]>({
@@ -69,16 +69,7 @@ export default function Gallery() {
           </div>
           
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-            {/* Admin Mode Toggle */}
-            <Button
-              variant={isAdminMode ? "default" : "outline"}
-              size="sm"
-              onClick={() => setIsAdminMode(!isAdminMode)}
-              className="font-sans"
-            >
-              {isAdminMode ? "Exit Admin" : "Admin Mode"}
-            </Button>
-            
+
             {/* View Mode Toggle */}
             <div className="flex items-center border border-gray-300 rounded-lg">
               <Button
@@ -206,20 +197,7 @@ export default function Gallery() {
                   </div>
                 </DialogContent>
                 </Dialog>
-                {isAdminMode && (
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    className="absolute top-2 right-2 h-8 w-8 p-0"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteImage(image.id, image.originalName);
-                    }}
-                    disabled={deleteImageMutation.isPending}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                )}
+
               </div>
             ))}
           </div>
@@ -293,16 +271,7 @@ export default function Gallery() {
                           </div>
                         </DialogContent>
                       </Dialog>
-                      {isAdminMode && (
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => handleDeleteImage(image.id, image.originalName)}
-                          disabled={deleteImageMutation.isPending}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      )}
+
                     </div>
                   </div>
                 </CardContent>

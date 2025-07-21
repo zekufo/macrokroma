@@ -11,7 +11,7 @@ import { Lock, Camera, Plus, Trash2, Eye, Edit } from "lucide-react";
 import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import type { Post } from "@shared/schema";
+import type { Post, Image } from "@shared/schema";
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,6 +21,11 @@ export default function AdminPage() {
 
   const { data: posts, isLoading } = useQuery<Post[]>({
     queryKey: ['/api/posts'],
+    enabled: isAuthenticated,
+  });
+
+  const { data: images, isLoading: isLoadingImages } = useQuery<Image[]>({
+    queryKey: ['/api/images'],
     enabled: isAuthenticated,
   });
 
@@ -42,10 +47,41 @@ export default function AdminPage() {
     },
   });
 
+  const deleteImageMutation = useMutation({
+    mutationFn: (imageId: number) => apiRequest(`/api/images/${imageId}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/images'] });
+      toast({
+        title: "Image deleted",
+        description: "The image has been removed from the gallery.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete the image. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleDeletePost = (postId: number, title: string) => {
     if (window.confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
       deletePostMutation.mutate(postId);
     }
+  };
+
+  const handleDeleteImage = (imageId: number, filename: string) => {
+    if (window.confirm(`Are you sure you want to delete "${filename}"? This will remove it from the gallery but not from any blog posts.`)) {
+      deleteImageMutation.mutate(imageId);
+    }
+  };
+
+  const formatFileSize = (bytes: number) => {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    if (bytes === 0) return '0 Bytes';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -156,23 +192,20 @@ export default function AdminPage() {
             </CardContent>
           </Card>
 
-          {/* Manage Images */}
+          {/* View Public Gallery */}
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <CardTitle>Image Gallery</CardTitle>
+              <CardTitle>Public Gallery</CardTitle>
               <CardDescription>
-                View and manage uploaded images with admin controls
+                View the public image gallery as visitors see it
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent>
               <Link href="/gallery">
                 <Button variant="outline" className="w-full">
-                  View Gallery
+                  View Public Gallery
                 </Button>
               </Link>
-              <p className="text-xs text-gray-500 text-center">
-                Use "Admin Mode" in the gallery to delete images
-              </p>
             </CardContent>
           </Card>
 
@@ -253,6 +286,65 @@ export default function AdminPage() {
                       Create First Post
                     </Button>
                   </Link>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Manage Images */}
+        <div className="mt-12">
+          <Card>
+            <CardHeader>
+              <CardTitle>Manage Images</CardTitle>
+              <CardDescription>
+                View and delete images from your gallery. Deleting images here removes them from the gallery but not from blog posts.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoadingImages ? (
+                <div className="text-center py-4">Loading images...</div>
+              ) : images && images.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {images.map((image) => (
+                    <div key={image.id} className="relative group">
+                      <Card className="overflow-hidden">
+                        <div className="aspect-square relative">
+                          <img
+                            src={`/uploads/${image.filename}`}
+                            alt={image.caption || image.originalName}
+                            className="w-full h-full object-cover"
+                          />
+                          {image.postId && (
+                            <Badge className="absolute top-2 left-2 bg-secondary text-white text-xs">
+                              From Article
+                            </Badge>
+                          )}
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            className="absolute top-2 right-2 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => handleDeleteImage(image.id, image.originalName)}
+                            disabled={deleteImageMutation.isPending}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <CardContent className="p-3">
+                          <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2">
+                            {image.caption || image.originalName}
+                          </h3>
+                          <p className="text-xs text-gray-500">
+                            {formatFileSize(image.size)} • {new Date(image.createdAt).toLocaleDateString()}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <p>No images yet. Upload images through the rich text editor when creating posts!</p>
                 </div>
               )}
             </CardContent>
