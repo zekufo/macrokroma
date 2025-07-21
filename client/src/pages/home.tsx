@@ -140,12 +140,7 @@ export default function Home() {
                 <BookOpen className="w-8 h-8 text-gray-400" />
               </div>
               <h3 className="text-xl font-medium text-gray-900 mb-2">Ready to Share Physics Insights</h3>
-              <p className="text-gray-500 mb-6">Start by creating your first article about the fascinating intersection of physics and photography.</p>
-              <Link href="/admin">
-                <Button className="bg-secondary hover:bg-indigo-700 text-white">
-                  Access Admin Panel
-                </Button>
-              </Link>
+              <p className="text-gray-500">Articles exploring the fascinating intersection of physics and photography will appear here soon.</p>
             </div>
           </div>
         )}
