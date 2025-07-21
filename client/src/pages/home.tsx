@@ -146,36 +146,14 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <i className="fas fa-camera text-secondary text-2xl"></i>
-                <h3 className="text-xl font-bold font-sans">macrokroma</h3>
-              </div>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Exploring the intersection of physics, technology, and art in photography. From quantum mechanics to optical engineering.
-              </p>
+          <div className="flex flex-col items-center text-center">
+            <div className="flex items-center space-x-2 mb-4">
+              <i className="fas fa-camera text-secondary text-2xl"></i>
+              <h3 className="text-xl font-bold font-sans">macrokroma</h3>
             </div>
-            
-            <div>
-              <h4 className="font-bold mb-4 font-sans">Categories</h4>
-              <ul className="space-y-2 text-gray-300">
-                <li><Link href="/?category=digital" className="hover:text-white transition-colors">Digital Photography</Link></li>
-                <li><Link href="/?category=film" className="hover:text-white transition-colors">Film Photography</Link></li>
-                <li><Link href="/?category=optics" className="hover:text-white transition-colors">Optics & Physics</Link></li>
-                <li><Link href="/?category=technique" className="hover:text-white transition-colors">Equipment Reviews</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-bold mb-4 font-sans">Resources</h4>
-              <ul className="space-y-2 text-gray-300">
-                <li><Link href="/calculators" className="hover:text-white transition-colors">Calculators</Link></li>
-                <li><Link href="/references" className="hover:text-white transition-colors">Reference Charts</Link></li>
-                <li><Link href="/tutorials" className="hover:text-white transition-colors">Tutorials</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-              </ul>
-            </div>
+            <p className="text-gray-300 mb-6 leading-relaxed max-w-2xl">
+              At the intersection of physics and photography, scientific literacy becomes a form of visual fluency, and every photograph is both evidence and poetry.
+            </p>
           </div>
           
           <div className="border-t border-gray-700 pt-8 mt-8 flex flex-col sm:flex-row justify-between items-center">
