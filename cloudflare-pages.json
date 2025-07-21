@@ -1,0 +1,21 @@
+{
+  "build": {
+    "command": "npm run build",
+    "cwd": "/",
+    "rootDir": "/",
+    "destinationDir": "dist/public"
+  },
+  "routes": [
+    {
+      "include": "/api/*",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    }
+  ],
+  "redirects": [
+    {
+      "from": "/api/*",
+      "to": "https://macrokroma-api.your-subdomain.workers.dev/api/*",
+      "status": 200
+    }
+  ]
+}
