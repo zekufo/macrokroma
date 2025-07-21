@@ -17,8 +17,8 @@ export default function About() {
             About macrokroma
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-            Exploring the fascinating intersection of physics, technology, and art in photography. 
-            From quantum mechanics in digital sensors to the chemistry of film development.
+            Diving deep into the science behind photography - from the quantum mechanics governing digital sensors 
+            to the chemistry of silver halide crystals in film. Understanding the physics makes you a better photographer.
           </p>
         </div>
 
@@ -28,9 +28,9 @@ export default function About() {
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-primary font-sans mb-4 text-center">Our Mission</h2>
               <p className="text-gray-700 leading-relaxed text-center">
-                To make the complex physics behind photography accessible to photographers, 
-                students, and anyone curious about how cameras capture light and create images. 
-                We believe understanding the science enhances both technical skill and creative vision.
+                To bridge the gap between complex physics concepts and practical photography knowledge. 
+                Whether you're a photographer wanting to understand your tools better, a student exploring optics, 
+                or simply curious about how light becomes an image - this is your guide to the science of photography.
               </p>
             </CardContent>
           </Card>
