@@ -161,15 +161,18 @@ export default function AdminPage() {
             <CardHeader>
               <CardTitle>Image Gallery</CardTitle>
               <CardDescription>
-                View and manage uploaded images
+                View and manage uploaded images with admin controls
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-2">
               <Link href="/gallery">
                 <Button variant="outline" className="w-full">
                   View Gallery
                 </Button>
               </Link>
+              <p className="text-xs text-gray-500 text-center">
+                Use "Admin Mode" in the gallery to delete images
+              </p>
             </CardContent>
           </Card>
 

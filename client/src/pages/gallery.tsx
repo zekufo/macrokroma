@@ -1,20 +1,49 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Grid, List, Upload, Filter } from "lucide-react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Grid, List, Upload, Filter, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import Header from "@/components/header";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import type { Image } from "@shared/schema";
 
 export default function Gallery() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [isAdminMode, setIsAdminMode] = useState(false);
+  const { toast } = useToast();
 
   const { data: images, isLoading } = useQuery<Image[]>({
     queryKey: ['/api/images'],
   });
+
+  const deleteImageMutation = useMutation({
+    mutationFn: (imageId: number) => apiRequest(`/api/images/${imageId}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/images'] });
+      toast({
+        title: "Image deleted",
+        description: "The image has been removed from the gallery.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete the image. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleDeleteImage = (imageId: number, filename: string) => {
+    if (window.confirm(`Are you sure you want to delete "${filename}"? This will remove it from the gallery but not from any blog posts.`)) {
+      deleteImageMutation.mutate(imageId);
+    }
+  };
 
   const displayImages = images || [];
 
@@ -40,6 +69,16 @@ export default function Gallery() {
           </div>
           
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
+            {/* Admin Mode Toggle */}
+            <Button
+              variant={isAdminMode ? "default" : "outline"}
+              size="sm"
+              onClick={() => setIsAdminMode(!isAdminMode)}
+              className="font-sans"
+            >
+              {isAdminMode ? "Exit Admin" : "Admin Mode"}
+            </Button>
+            
             {/* View Mode Toggle */}
             <div className="flex items-center border border-gray-300 rounded-lg">
               <Button
@@ -107,35 +146,41 @@ export default function Gallery() {
         {!isLoading && viewMode === "grid" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {displayImages.map((image) => (
-              <Dialog key={image.id}>
-                <DialogTrigger asChild>
-                  <Card className="group cursor-pointer hover:shadow-lg transition-shadow overflow-hidden">
-                    <div className="aspect-square relative overflow-hidden">
-                      <img
-                        src={image.url || `/uploads/${image.filename}`}
-                        alt={image.caption || image.originalName}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-sans">
-                          View Details
-                        </span>
+              <div key={image.id} className="relative">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Card className="group cursor-pointer hover:shadow-lg transition-shadow overflow-hidden">
+                      <div className="aspect-square relative overflow-hidden">
+                        <img
+                          src={`/uploads/${image.filename}`}
+                          alt={image.caption || image.originalName}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        {image.postId && (
+                          <Badge className="absolute top-2 left-2 bg-secondary text-white text-xs">
+                            From Article
+                          </Badge>
+                        )}
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 flex items-center justify-center">
+                          <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-sans">
+                            View Details
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-semibold text-sm text-gray-900 font-sans mb-1 line-clamp-2">
-                        {image.caption || image.originalName}
-                      </h3>
-                      <p className="text-xs text-gray-500">
-                        {formatFileSize(image.size)} • {new Date(image.createdAt).toLocaleDateString()}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </DialogTrigger>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-sm text-gray-900 font-sans mb-1 line-clamp-2">
+                          {image.caption || image.originalName}
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          {formatFileSize(image.size)} • {new Date(image.createdAt).toLocaleDateString()}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </DialogTrigger>
                 <DialogContent className="max-w-4xl w-full">
                   <div className="space-y-4">
                     <img
-                      src={image.url || `/uploads/${image.filename}`}
+                      src={`/uploads/${image.filename}`}
                       alt={image.caption || image.originalName}
                       className="w-full h-auto rounded-lg"
                     />
@@ -160,7 +205,22 @@ export default function Gallery() {
                     </div>
                   </div>
                 </DialogContent>
-              </Dialog>
+                </Dialog>
+                {isAdminMode && (
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    className="absolute top-2 right-2 h-8 w-8 p-0"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteImage(image.id, image.originalName);
+                    }}
+                    disabled={deleteImageMutation.isPending}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
             ))}
           </div>
         )}
@@ -173,7 +233,7 @@ export default function Gallery() {
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-4">
                     <img
-                      src={image.url || `/uploads/${image.filename}`}
+                      src={`/uploads/${image.filename}`}
                       alt={image.caption || image.originalName}
                       className="w-24 h-18 object-cover rounded-lg"
                     />
@@ -193,6 +253,11 @@ export default function Gallery() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
+                      {image.postId && (
+                        <Badge variant="outline" className="text-xs">
+                          From Article
+                        </Badge>
+                      )}
                       <Dialog>
                         <DialogTrigger asChild>
                           <Button variant="outline" size="sm" className="font-sans">
@@ -202,7 +267,7 @@ export default function Gallery() {
                         <DialogContent className="max-w-4xl w-full">
                           <div className="space-y-4">
                             <img
-                              src={image.url || `/uploads/${image.filename}`}
+                              src={`/uploads/${image.filename}`}
                               alt={image.caption || image.originalName}
                               className="w-full h-auto rounded-lg"
                             />
@@ -228,6 +293,16 @@ export default function Gallery() {
                           </div>
                         </DialogContent>
                       </Dialog>
+                      {isAdminMode && (
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDeleteImage(image.id, image.originalName)}
+                          disabled={deleteImageMutation.isPending}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CardContent>
