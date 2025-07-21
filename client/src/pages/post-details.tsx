@@ -109,8 +109,8 @@ export default function PostDetails() {
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
                   <div>
-                    <p className="font-sans font-medium text-gray-800">Dr. Sarah Chen</p>
-                    <p className="text-sm text-gray-500">Optical Engineer & Photography Researcher</p>
+                    <p className="font-sans font-medium text-gray-800">Ezequiel (Zeke) Davico</p>
+                    <p className="text-sm text-gray-500">Physicist & Educator</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
