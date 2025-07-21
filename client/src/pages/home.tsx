@@ -142,26 +142,7 @@ export default function Home() {
         {/* Image Gallery Section */}
         {!searchQuery && selectedCategory === 'all' && <ImageGallery />}
 
-        {/* Newsletter and archive */}
-        <section className="bg-gradient-to-r from-secondary to-indigo-700 rounded-2xl p-8 text-white">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-2xl font-bold mb-4 font-sans">Stay Updated with Physics & Photography</h3>
-            <p className="text-indigo-100 mb-6">
-              Get the latest articles on photographic science, technical tutorials, and equipment reviews delivered to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white font-sans"
-              />
-              <Button className="bg-white text-secondary hover:bg-gray-100 font-sans font-medium">
-                Subscribe
-              </Button>
-            </div>
-            <p className="text-indigo-200 text-sm mt-4">No spam, unsubscribe anytime</p>
-          </div>
-        </section>
+
       </main>
 
       {/* Footer */}

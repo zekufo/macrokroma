@@ -1,18 +1,31 @@
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { BookOpen, Images, Microscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { Post } from "@shared/schema";
 
 export default function HeroSection() {
+  const { data: posts } = useQuery<Post[]>({
+    queryKey: ['/api/posts'],
+    queryFn: async () => {
+      const response = await fetch('/api/posts');
+      if (!response.ok) throw new Error('Failed to fetch posts');
+      return response.json();
+    },
+  });
+
+  const latestPost = posts?.[0];
+
   return (
     <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-6 font-sans">
-              Exploring the Science Behind Every Shot
+              physics + photography
             </h2>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Dive deep into the physics, optics, and technical principles that make photography possible. From quantum mechanics in digital sensors to the chemistry of film development.
+              Where fundamental principles of light, matter, and energy transform into images that move people. Understanding first principles makes your photography transcend technique and become art.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/">
@@ -35,17 +48,19 @@ export default function HeroSection() {
               alt="Camera lens optical elements"
               className="rounded-xl shadow-2xl w-full"
             />
-            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
-                  <Microscope className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="font-sans font-medium text-sm text-gray-800">Latest Post</p>
-                  <p className="text-xs text-gray-600">Lens Aberrations Explained</p>
+            {latestPost && (
+              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
+                    <Microscope className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-sans font-medium text-sm text-gray-800">Latest Post</p>
+                    <p className="text-xs text-gray-600">{latestPost.title}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
