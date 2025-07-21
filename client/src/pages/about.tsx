@@ -39,14 +39,10 @@ export default function About() {
                   <p className="text-lg text-secondary mb-4">Physicist & Educator</p>
                   <div className="prose text-gray-700">
                     <p className="mb-4">
-                      From quantum cryptography labs to ski slopes, Zeke brings a physicist's curiosity to everything he encounters. 
-                      Currently leading educational innovation programs, he's spent years unraveling how light behaves at the 
-                      quantum level - knowledge that naturally led him to explore how cameras capture and create reality.
+                      Zeke inhabits the liminal space where rigorous science meets unbridled imagination. As a physicist turned visual storyteller, he hunts for the moments when nature's blueprint becomes art—when entropy creates unexpected patterns, when simple harmonic motion transforms into visual rhythm, when the universe accidentally reveals its most guarded aesthetic secrets.
                     </p>
                     <p>
-                      When he's not designing algorithms or mentoring students, you'll find him with a camera, applying the same 
-                      first-principles thinking that drives his research to understand why certain images resonate and others don't. 
-                      This blog is where those two worlds collide.
+                      Each image is an act of translation—converting the stark elegance of physics into something that bypasses the intellect entirely, speaking directly to that part of us that recognizes beauty before we understand why. In Zeke's work, scientific literacy becomes a form of visual fluency, and every photograph is both evidence and poetry.
                     </p>
                   </div>
                 </div>
