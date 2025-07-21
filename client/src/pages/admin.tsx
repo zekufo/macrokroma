@@ -1,16 +1,52 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Lock, Camera, Plus } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Lock, Camera, Plus, Trash2, Eye, Edit } from "lucide-react";
 import { Link } from "wouter";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import type { Post } from "@shared/schema";
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { toast } = useToast();
+
+  const { data: posts, isLoading } = useQuery<Post[]>({
+    queryKey: ['/api/posts'],
+    enabled: isAuthenticated,
+  });
+
+  const deletePostMutation = useMutation({
+    mutationFn: (postId: number) => apiRequest(`/api/posts/${postId}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+      toast({
+        title: "Post deleted",
+        description: "The article has been successfully removed.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete the post. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleDeletePost = (postId: number, title: string) => {
+    if (window.confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+      deletePostMutation.mutate(postId);
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,6 +192,66 @@ export default function AdminPage() {
                   Edit About Page
                 </Button>
               </Link>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Manage Posts */}
+        <div className="mt-12">
+          <Card>
+            <CardHeader>
+              <CardTitle>Manage Posts</CardTitle>
+              <CardDescription>
+                View, edit, and delete your published articles
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <div className="text-center py-4">Loading posts...</div>
+              ) : posts && posts.length > 0 ? (
+                <div className="space-y-4">
+                  {posts.map((post) => (
+                    <div key={post.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900">{post.title}</h3>
+                        <p className="text-sm text-gray-600 mt-1">{post.excerpt}</p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <Badge variant="outline">{post.category}</Badge>
+                          <span className="text-xs text-gray-500">{post.readTime} min read</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 ml-4">
+                        <Link href={`/post/${post.id}`}>
+                          <Button size="sm" variant="ghost">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Button size="sm" variant="ghost">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="ghost"
+                          onClick={() => handleDeletePost(post.id, post.title)}
+                          disabled={deletePostMutation.isPending}
+                        >
+                          <Trash2 className="h-4 w-4 text-red-600" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <p>No posts yet. Create your first article to get started!</p>
+                  <Link href="/create">
+                    <Button className="mt-4 bg-secondary hover:bg-indigo-700">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create First Post
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

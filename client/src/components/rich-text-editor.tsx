@@ -1,15 +1,19 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Bold, Italic, List, ListOrdered, Quote, Undo, Redo } from 'lucide-react';
+import { Bold, Italic, List, ListOrdered, Quote, Undo, Redo, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 interface RichTextEditorProps {
   content: string;
   onChange: (content: string) => void;
+  postId?: number;
 }
 
-export default function RichTextEditor({ content, onChange }: RichTextEditorProps) {
+export default function RichTextEditor({ content, onChange, postId }: RichTextEditorProps) {
+  const { toast } = useToast();
   const editor = useEditor({
     extensions: [StarterKit],
     content,
@@ -17,6 +21,42 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       onChange(editor.getHTML());
     },
   });
+
+  const handleImageUpload = async () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        try {
+          const formData = new FormData();
+          formData.append('image', file);
+          if (postId) {
+            formData.append('postId', postId.toString());
+          }
+          
+          const response = await apiRequest("/api/images", { method: "POST", body: formData });
+          const imageData = await response.json();
+          
+          // Insert image into editor
+          editor?.chain().focus().insertContent(`<img src="${imageData.url}" alt="${imageData.originalName}" />`).run();
+          
+          toast({
+            title: "Image uploaded",
+            description: "Image has been added to your article and gallery.",
+          });
+        } catch (error) {
+          toast({
+            title: "Upload failed",
+            description: "Failed to upload image. Please try again.",
+            variant: "destructive",
+          });
+        }
+      }
+    };
+    input.click();
+  };
 
   if (!editor) {
     return null;
@@ -65,6 +105,14 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
           className={editor.isActive('blockquote') ? 'bg-gray-200' : ''}
         >
           <Quote className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleImageUpload}
+          title="Upload Image"
+        >
+          <Image className="h-4 w-4" />
         </Button>
         <Separator orientation="vertical" className="h-6" />
         <Button

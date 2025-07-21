@@ -51,7 +51,7 @@ export default function CreatePost() {
       if (coverImageFile) {
         const formData = new FormData();
         formData.append("image", coverImageFile);
-        const imageResponse = await apiRequest("POST", "/api/images", formData);
+        const imageResponse = await apiRequest("/api/images", { method: "POST", body: formData });
         const imageData = await imageResponse.json();
         coverImageUrl = imageData.url;
       }
@@ -63,7 +63,7 @@ export default function CreatePost() {
         coverImage: coverImageUrl || undefined,
       };
 
-      const response = await apiRequest("POST", "/api/posts", postData);
+      const response = await apiRequest("/api/posts", { method: "POST", body: JSON.stringify(postData), headers: { "Content-Type": "application/json" } });
       return response.json();
     },
     onSuccess: (post) => {
