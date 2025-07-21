@@ -29,7 +29,7 @@ export default function About() {
 
         {/* Author Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-primary font-sans mb-8 text-center">About the Author</h2>
+
           <Card>
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
