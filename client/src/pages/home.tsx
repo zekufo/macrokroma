@@ -172,15 +172,10 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="border-t border-gray-700 pt-8 mt-8 flex flex-col sm:flex-row justify-between items-center">
+          <div className="border-t border-gray-700 pt-8 mt-8 text-center">
             <p className="text-gray-400 text-sm font-sans">
               © 2024 macrokroma. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 sm:mt-0">
-              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</Link>
-              <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">Contact</Link>
-            </div>
           </div>
         </div>
       </footer>
