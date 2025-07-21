@@ -14,7 +14,7 @@ export default function About() {
             <Camera className="w-12 h-12 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-primary font-sans mb-6">
-            About macrokroma
+            physics + photography
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
             Diving deep into the science behind photography - from the quantum mechanics governing digital sensors 
@@ -92,27 +92,39 @@ export default function About() {
 
         {/* Author Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-primary font-sans mb-8 text-center">About the Author</h2>
+          <h2 className="text-3xl font-bold text-primary font-sans mb-8 text-center">About Ezequiel (Zeke) Davico</h2>
           <Card>
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
                 <div className="w-32 h-32 bg-gray-300 rounded-full flex-shrink-0"></div>
                 <div className="text-center md:text-left">
-                  <h3 className="text-2xl font-bold text-primary font-sans mb-2">Dr. Sarah Chen</h3>
-                  <p className="text-lg text-secondary mb-4">Optical Engineer & Photography Researcher</p>
+                  <h3 className="text-2xl font-bold text-primary font-sans mb-2">Ezequiel (Zeke) Davico</h3>
+                  <p className="text-lg text-secondary mb-4">Physicist & Educator</p>
                   <div className="prose text-gray-700">
                     <p className="mb-4">
-                      Dr. Chen holds a PhD in Optical Engineering from MIT and has spent over 15 years 
-                      researching camera sensor technology and optical systems. She has published numerous 
-                      papers on quantum efficiency in CMOS sensors and has worked with major camera manufacturers.
+                      Physicist with a diverse professional background spanning academia, data analysis, and cryptography. 
+                      Zeke currently leads InSight, a program dedicated to supporting students throughout their academic 
+                      journeys by seamlessly integrating educational resources and initiatives into the broader student experience.
                     </p>
                     <p className="mb-4">
-                      Combining her deep technical expertise with a passion for photography, Dr. Chen started 
-                      this blog to bridge the gap between complex physics concepts and practical photography knowledge.
+                      Previously, Zeke conducted research in quantum cryptography, where he designed and tested cryptographic 
+                      algorithms based on quantum principles. His work included building models and simulations to assess the 
+                      security and efficiency of these cutting-edge techniques. Collaborating with interdisciplinary teams of 
+                      physicists, engineers, and cybersecurity experts, he applied advanced methods to real-world data 
+                      transmission systems, ensuring their resilience against potential threats.
+                    </p>
+                    <p className="mb-4">
+                      Before transitioning to research and program management, Zeke spent several years in the education sector, 
+                      where he developed and implemented a next-generation science curriculum grounded in the latest educational 
+                      research. This effort was inspired by his work with NSF-supported studies on the peer-led, team-learning 
+                      model, which has demonstrated success in various university-level STEM courses.
                     </p>
                     <p>
-                      When not writing about photographic physics, she can be found experimenting with vintage 
-                      film cameras and exploring the relationship between scientific understanding and artistic expression.
+                      Throughout his career, Zeke has blended technical expertise with a strong commitment to education and 
+                      mentoring, striving to positively impact academic systems and students' lives. Outside of work, he enjoys 
+                      outdoor activities such as skiing and paddle boarding, reflecting his appreciation for physical challenges 
+                      and nature. Zeke brings a global perspective to his work, combining scientific innovation with a passion 
+                      for teaching, personal growth, and problem-solving.
                     </p>
                   </div>
                 </div>
