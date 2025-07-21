@@ -39,10 +39,10 @@ export default function About() {
                   <p className="text-lg text-secondary mb-4">Physicist & Educator</p>
                   <div className="prose text-gray-700">
                     <p className="mb-4">
-                      Zeke inhabits the liminal space where rigorous science meets unbridled imagination. As a physicist turned visual storyteller, he hunts for the moments when nature's blueprint becomes art—when entropy creates unexpected patterns, when simple harmonic motion transforms into visual rhythm, when the universe accidentally reveals its most guarded aesthetic secrets.
+                      Explorer of the liminal space where rigorous science meets unbridled imagination. A physicist turned visual storyteller, hunting for moments when nature's blueprint becomes art—places where entropy creates unexpected patterns, where simple harmonic motion transforms into visual rhythm, instances when the universe accidentally reveals its most guarded aesthetic secrets.
                     </p>
                     <p>
-                      Each image is an act of translation—converting the stark elegance of physics into something that bypasses the intellect entirely, speaking directly to that part of us that recognizes beauty before we understand why. In Zeke's work, scientific literacy becomes a form of visual fluency, and every photograph is both evidence and poetry.
+                      Each image is an act of translation, converting the stark elegance of physics into something that bypasses the intellect entirely, speaking directly to that part of us that recognizes beauty before we understand why. At the intersection of physics and photography, scientific literacy becomes a form of visual fluency, and every photograph is both evidence and poetry.
                     </p>
                   </div>
                 </div>
