@@ -1,6 +1,7 @@
 import { Camera, Microscope, BookOpen, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/header";
+import zekePhoto from "@assets/Davico-Zeke-800x800_1753068097920.jpg";
 
 export default function About() {
   return (
@@ -33,7 +34,13 @@ export default function About() {
           <Card>
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-                <div className="w-32 h-32 bg-gray-300 rounded-full flex-shrink-0"></div>
+                <div className="w-32 h-32 rounded-full flex-shrink-0 overflow-hidden">
+                  <img 
+                    src={zekePhoto} 
+                    alt="Ezequiel (Zeke) Davico" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div className="text-center md:text-left">
                   <h3 className="text-2xl font-bold text-primary font-sans mb-2">Ezequiel (Zeke) Davico</h3>
                   <p className="text-lg text-secondary mb-4">Physicist & Educator</p>
