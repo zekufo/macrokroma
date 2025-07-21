@@ -52,8 +52,6 @@ export default function Home() {
     { id: "all", label: "All", color: "bg-secondary text-white" },
     { id: "digital", label: "Digital Photography", color: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
     { id: "film", label: "Film Photography", color: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
-    { id: "optics", label: "Optics", color: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
-    { id: "technique", label: "Technique", color: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
   ];
 
   const featuredPost = posts?.[0];
