@@ -1,10 +1,15 @@
-import type { Express } from "express";
+import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertPostSchema, insertImageSchema } from "@shared/schema";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+
+// Extend Express Request type to include file
+interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+}
 
 // Configure multer for image uploads
 const uploadDir = path.join(process.cwd(), "uploads");
@@ -17,7 +22,7 @@ const upload = multer({
   limits: {
     fileSize: 5 * 1024 * 1024, // 5MB limit
   },
-  fileFilter: (req, file, cb) => {
+  fileFilter: (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
     const allowedTypes = /jpeg|jpg|png|gif|webp/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = allowedTypes.test(file.mimetype);
@@ -138,7 +143,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/images", upload.single("image"), async (req, res) => {
+  app.post("/api/images", upload.single("image"), async (req: MulterRequest, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No image file provided" });
