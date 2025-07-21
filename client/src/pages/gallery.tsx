@@ -16,71 +16,7 @@ export default function Gallery() {
     queryKey: ['/api/images'],
   });
 
-  // Sample gallery data since we don't have images yet
-  const sampleImages = [
-    {
-      id: 1,
-      filename: "quantum-efficiency.jpg",
-      originalName: "Quantum Efficiency Demonstration",
-      mimeType: "image/jpeg",
-      size: 2048000,
-      caption: "CMOS sensor under microscope showing quantum well structures",
-      url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      createdAt: new Date("2024-03-15"),
-    },
-    {
-      id: 2,
-      filename: "film-crystals.jpg",
-      originalName: "Silver Halide Crystals",
-      mimeType: "image/jpeg",
-      size: 1536000,
-      caption: "Microscopic view of silver halide crystals in photographic emulsion",
-      url: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      createdAt: new Date("2024-03-12"),
-    },
-    {
-      id: 3,
-      filename: "light-dispersion.jpg",
-      originalName: "Chromatic Aberration Demo",
-      mimeType: "image/jpeg",
-      size: 1792000,
-      caption: "Light dispersion through optical elements showing wavelength separation",
-      url: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      createdAt: new Date("2024-03-10"),
-    },
-    {
-      id: 4,
-      filename: "sensor-pixels.jpg",
-      originalName: "Digital Sensor Array",
-      mimeType: "image/jpeg",
-      size: 2304000,
-      caption: "Macro photography of digital camera sensor showing Bayer pattern",
-      url: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      createdAt: new Date("2024-03-08"),
-    },
-    {
-      id: 5,
-      filename: "lens-elements.jpg",
-      originalName: "Optical Lens Assembly",
-      mimeType: "image/jpeg",
-      size: 1920000,
-      caption: "Cross-section of camera lens showing multiple optical elements",
-      url: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      createdAt: new Date("2024-03-05"),
-    },
-    {
-      id: 6,
-      filename: "light-trails.jpg",
-      originalName: "Long Exposure Physics",
-      mimeType: "image/jpeg",
-      size: 2560000,
-      caption: "Long exposure photograph demonstrating motion and time in photography",
-      url: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      createdAt: new Date("2024-03-01"),
-    },
-  ];
-
-  const displayImages = images || sampleImages;
+  const displayImages = images || [];
 
   const formatFileSize = (bytes: number) => {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
