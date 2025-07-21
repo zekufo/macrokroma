@@ -43,33 +43,13 @@ export default function HeroSection() {
             </div>
           </div>
           <div className="relative">
-            {latestPost?.coverImage ? (
-              <img
-                src={latestPost.coverImage}
-                alt={latestPost.title}
-                className="rounded-xl shadow-2xl w-full"
-              />
-            ) : (
-              <div className="w-full h-96 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl shadow-2xl flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <p className="text-lg font-medium">No featured article yet</p>
-                  <p className="text-sm">Create your first post to see it here</p>
-                </div>
+            <div className="w-full h-96 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl shadow-2xl flex items-center justify-center">
+              <div className="text-center text-gray-500">
+                <Microscope className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                <p className="text-lg font-medium">Ready for Physics Articles</p>
+                <p className="text-sm">Upload a cover image when creating your first post</p>
               </div>
-            )}
-            {latestPost && (
-              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
-                    <Microscope className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-sans font-medium text-sm text-gray-800">Latest Post</p>
-                    <p className="text-xs text-gray-600">{latestPost.title}</p>
-                  </div>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
