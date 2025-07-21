@@ -64,8 +64,8 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
                 <div>
-                  <p className="font-sans font-medium text-sm text-gray-800">Dr. Sarah Chen</p>
-                  <p className="text-xs text-gray-500">Optical Engineer</p>
+                  <p className="font-sans font-medium text-sm text-gray-800">Ezequiel (Zeke) Davico</p>
+                  <p className="text-xs text-gray-500">Physicist & Educator</p>
                 </div>
               </div>
               <div className="flex items-center space-x-4 text-gray-500">
