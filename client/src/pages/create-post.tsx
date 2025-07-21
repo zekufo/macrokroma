@@ -15,11 +15,12 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import Header from "@/components/header";
 import RichTextEditor from "@/components/rich-text-editor";
+import PostContent from "@/components/post-content";
 import { insertPostSchema } from "@shared/schema";
 import { Link } from "wouter";
 
 const createPostSchema = insertPostSchema.extend({
-  category: z.enum(["digital", "film", "optics", "technique"]),
+  category: z.enum(["digital", "film"]),
 });
 
 type CreatePostData = z.infer<typeof createPostSchema>;
@@ -199,9 +200,9 @@ export default function CreatePost() {
                         />
                       )}
                     </div>
-                    <div 
-                      className="prose prose-lg max-w-none"
-                      dangerouslySetInnerHTML={{ __html: content || "<p>Article content will appear here...</p>" }}
+                    <PostContent 
+                      content={content || "<p>Article content will appear here...</p>"}
+                      className="prose-lg"
                     />
                   </div>
                 )}
@@ -230,8 +231,6 @@ export default function CreatePost() {
                     <SelectContent>
                       <SelectItem value="digital">Digital Photography</SelectItem>
                       <SelectItem value="film">Film Photography</SelectItem>
-                      <SelectItem value="optics">Optics & Physics</SelectItem>
-                      <SelectItem value="technique">Technique</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import Header from "@/components/header";
+import PostContent from "@/components/post-content";
 import type { Post } from "@shared/schema";
 
 export default function PostDetails() {
@@ -137,9 +138,9 @@ export default function PostDetails() {
             )}
 
             {/* Article content */}
-            <div 
-              className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: post.content }}
+            <PostContent 
+              content={post.content}
+              className="prose-lg"
             />
 
             {/* Article footer */}

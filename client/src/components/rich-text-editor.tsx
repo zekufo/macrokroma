@@ -1,10 +1,12 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Bold, Italic, List, ListOrdered, Quote, Undo, Redo, Image } from 'lucide-react';
+import { Bold, Italic, List, ListOrdered, Quote, Undo, Redo, Image, Sigma } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { useEffect } from 'react';
+import 'katex/dist/katex.min.css';
 
 interface RichTextEditorProps {
   content: string;
@@ -21,6 +23,19 @@ export default function RichTextEditor({ content, onChange, postId }: RichTextEd
       onChange(editor.getHTML());
     },
   });
+
+  const insertMath = (isInline: boolean = true) => {
+    const mathDelimiter = isInline ? '$' : '$$';
+    const placeholder = isInline ? 'equation' : '\\begin{equation}\nequation\n\\end{equation}';
+    const mathText = `${mathDelimiter}${placeholder}${mathDelimiter}`;
+    
+    editor?.chain().focus().insertContent(mathText).run();
+    
+    toast({
+      title: "Math inserted",
+      description: `${isInline ? 'Inline' : 'Display'} math equation added. Edit the LaTeX between the $ symbols.`,
+    });
+  };
 
   const handleImageUpload = async () => {
     const input = document.createElement('input');
@@ -113,6 +128,24 @@ export default function RichTextEditor({ content, onChange, postId }: RichTextEd
           title="Upload Image"
         >
           <Image className="h-4 w-4" />
+        </Button>
+        <Separator orientation="vertical" className="h-6" />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => insertMath(true)}
+          title="Insert Inline Math (LaTeX)"
+        >
+          <Sigma className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => insertMath(false)}
+          title="Insert Display Math (LaTeX)"
+          className="text-xs px-2"
+        >
+          $$
         </Button>
         <Separator orientation="vertical" className="h-6" />
         <Button
