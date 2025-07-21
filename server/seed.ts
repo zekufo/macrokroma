@@ -71,7 +71,7 @@ const samplePosts = [
     <li><strong>Lateral:</strong> Wavelengths focus at different positions off-axis</li>
     </ul>`,
     excerpt: "Understanding how different wavelengths of light focus at different points and modern correction techniques.",
-    category: "optics",
+    category: "digital",
     coverImage: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
     published: true,
     readTime: 7,

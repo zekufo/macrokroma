@@ -9,6 +9,18 @@ This is a full-stack blog application focused on the physics and technical aspec
 Preferred communication style: Simple, everyday language.
 Directive: Wait for all information before acting on requests.
 
+## Recent Updates (July 21, 2025)
+
+✓ Removed writing tips section from create post page for cleaner interface
+✓ Implemented intelligent image management: cover images auto-added to gallery with article titles
+✓ Added gallery inclusion toggle for body images uploaded through rich text editor
+✓ Updated database schema to support optional gallery inclusion for uploaded images
+✓ Fixed all category references to only include Digital and Film (removed Optics and Technique)
+✓ Enhanced KaTeX integration for mathematical notation in physics articles
+✓ Improved SEO with comprehensive meta tags and Open Graph support
+✓ Populated database with sample physics-focused articles
+✓ Verified TypeScript compilation and error-free codebase
+
 ## System Architecture
 
 ### Frontend Architecture
@@ -16,7 +28,7 @@ Directive: Wait for all information before acting on requests.
 - **Styling**: Tailwind CSS with shadcn/ui component library for consistent UI design
 - **Routing**: Wouter for lightweight client-side routing
 - **State Management**: TanStack Query (React Query) for server state management
-- **Rich Text Editing**: TipTap editor for creating and editing blog posts
+- **Rich Text Editing**: TipTap editor with KaTeX LaTeX math support for scientific equations
 - **Form Handling**: React Hook Form with Zod validation for type-safe forms
 
 ### Backend Architecture
@@ -41,7 +53,7 @@ Directive: Wait for all information before acting on requests.
 ### Database Schema
 - **Posts Table**: Contains blog posts with title, content, excerpt, category, cover image, publication status, and read time
 - **Images Table**: Stores uploaded images with metadata and optional post associations
-- **Categories**: Digital, Film, Optics, and Technique photography categories
+- **Categories**: Digital and Film photography categories
 
 ### API Routes
 - **GET /api/posts**: Retrieve posts with optional category and search filtering
@@ -69,7 +81,7 @@ Directive: Wait for all information before acting on requests.
 ## Data Flow
 
 1. **Post Creation**: Users create posts through the rich text editor, which saves content as HTML to the database
-2. **Image Upload**: Images are uploaded to the server filesystem and metadata is stored in the database
+2. **Image Upload**: Cover images automatically added to gallery with article titles; body images have optional gallery inclusion toggle
 3. **Content Retrieval**: Posts are fetched with optional filtering by category or search terms
 4. **Client-Side Routing**: Wouter handles navigation without page reloads
 5. **State Management**: React Query manages server state with caching and automatic refetching

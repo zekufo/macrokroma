@@ -8,7 +8,7 @@ export const posts = pgTable("posts", {
   title: text("title").notNull(),
   content: text("content").notNull(),
   excerpt: text("excerpt").notNull(),
-  category: text("category").notNull(), // "digital" | "film" | "optics" | "technique"
+  category: text("category").notNull(), // "digital" | "film"
   coverImage: text("cover_image"),
   published: boolean("published").default(false),
   readTime: integer("read_time").notNull(), // in minutes
@@ -25,6 +25,7 @@ export const images = pgTable("images", {
   caption: text("caption"),
   postId: integer("post_id").references(() => posts.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const insertPostSchema = createInsertSchema(posts).omit({
@@ -36,6 +37,7 @@ export const insertPostSchema = createInsertSchema(posts).omit({
 export const insertImageSchema = createInsertSchema(images).omit({
   id: true,
   createdAt: true,
+  updatedAt: true,
 });
 
 // Relations

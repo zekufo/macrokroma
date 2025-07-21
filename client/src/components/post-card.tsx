@@ -13,8 +13,6 @@ interface PostCardProps {
 const categoryColors = {
   digital: "bg-blue-100 text-blue-700",
   film: "bg-green-100 text-green-700",
-  optics: "bg-purple-100 text-purple-700",
-  technique: "bg-orange-100 text-orange-700",
 };
 
 export default function PostCard({ post, featured = false }: PostCardProps) {
